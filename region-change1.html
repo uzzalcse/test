@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .header {
+            padding: 1rem;
+            border-bottom: 1px solid #e1e1e1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header img {
+            width: 20px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #222;
+            font-size: 0.9rem;
+        }
+
+        /* Region Dialog Styles */
+        .region-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .region-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px 20px 20px 20px; /* Increased top padding to create space for dismiss button */
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative; /* For absolute positioning of the dismiss button */
+        }
+
+        .dialog-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .warning-icon {
+            color: #ff8c00;
+            margin-right: 8px;
+        }
+
+        .warning-message {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .region-select, .currency-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .currency-select {
+            color: #666;
+            background-color: #f5f5f5;
+        }
+
+        .save-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0071c2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .save-button:hover {
+            background-color: #005999;
+        }
+
+        .select-group {
+            margin-bottom: 10px;
+        }
+
+        .select-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Dismiss Button */
+        .dismiss-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .dismiss-button:hover {
+            color: #0071c2;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="images/favicon_1.png" alt="">
+        <a href="#" class="nav-link" id="region-selector">United States</a>
+        <a href="#" class="nav-link">Trip Boards</a>
+        <a href="#" class="nav-link">List your property</a>
+        <a href="#" class="nav-link">Help</a>
+        <a href="#" class="nav-link">My trips</a>
+        <a href="#" class="nav-link">Sign in</a>
+    </header>
+
+    <!-- Region Selection Modal -->
+    <div class="region-modal" id="regionModal">
+        <div class="region-dialog">
+            <!-- Dismiss button -->
+            <button class="dismiss-button" id="dismissButton">×</button>
+
+            <div class="dialog-header">Display settings</div>
+            <div class="warning-message">
+                <span class="warning-icon">⚠️</span>
+                Changing your region could change your rewards program
+            </div>
+            <div class="warning-message">
+                To stay with your current rewards program, keep your region the same. One Key is currently only available in select regions.
+            </div>
+            <div class="select-group">
+                <label class="select-label">Region</label>
+                <select class="region-select" id="regionSelect" onchange="updateCurrency()">
+                    <option value="us">United States</option>
+                    <option value="pt">Portugal</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="fr">France</option>
+                    <option value="de">Germany</option>
+                </select>
+            </div>
+            <div class="select-group">
+                <label class="select-label">Currency</label>
+                <select class="currency-select" id="currencySelect" disabled>
+                    <option value="USD">US Dollar (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                    <option value="GBP">British Pound (GBP)</option>
+                </select>
+            </div>
+            <button class="save-button" onclick="saveRegion()">Save</button>
+        </div>
+    </div>
+
+    <script>
+        const regionSelector = document.getElementById('region-selector');
+        const regionModal = document.getElementById('regionModal');
+        const regionSelect = document.getElementById('regionSelect');
+        const currencySelect = document.getElementById('currencySelect');
+        const dismissButton = document.getElementById('dismissButton');
+
+        const regionCurrencyMap = {
+            'us': 'USD',
+            'pt': 'EUR',
+            'fr': 'EUR',
+            'de': 'EUR',
+            'uk': 'GBP'
+        };
+
+        function updateCurrency() {
+            const selectedRegion = regionSelect.value;
+            const currency = regionCurrencyMap[selectedRegion];
+            
+            // Find and select the corresponding currency option
+            for(let i = 0; i < currencySelect.options.length; i++) {
+                if(currencySelect.options[i].value === currency) {
+                    currencySelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        regionSelector.addEventListener('click', function(e) {
+            e.preventDefault();
+            regionModal.style.display = 'block';
+            updateCurrency(); // Update currency when dialog opens
+        });
+
+        function saveRegion() {
+            const selectedRegion = regionSelect.options[regionSelect.selectedIndex].text;
+            regionSelector.textContent = selectedRegion;
+            regionModal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside the dialog
+        regionModal.addEventListener('click', function(e) {
+            if (e.target === regionModal) {
+                regionModal.style.display = 'none';
+            }
+        });
+
+        // Close modal when dismiss button is clicked
+        dismissButton.addEventListener('click', function() {
+            regionModal.style.display = 'none';
+        });
+
+        // Initial currency update
+        updateCurrency();
+    </script>
+</body>
+</html>

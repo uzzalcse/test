@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f8f8;
+  }
+  
+  .booking-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .price-section h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .dates, .travelers {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+  
+  .date label {
+    display: block;
+    font-size: 14px;
+  }
+  
+  .date input {
+    margin-top: 5px;
+    padding: 5px;
+    width: 120px;
+  }
+  
+  #travelerBtn {
+    background: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .dropdown {
+    display: none;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 5px;
+    position: absolute;
+    width: 250px;
+    z-index: 10;
+  }
+  
+  .counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .counter button {
+    background: #f0f0f0;
+    border: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  #doneBtn {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .total {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .book-now {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Save Button</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- FontAwesome CDN -->
+    <style>
+        /* Container for save and share buttons */
+        .save-and-share-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 40px;
+            max-width: 800px;
+            margin: 0px auto;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        /* Style for the "Back Link" */
+        .back-link {
+            color: #006ce4;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link::before {
+            content: "←";
+            margin-right: 8px;
+        }
+
+        /* Button group container */
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Common style for both buttons */
+        .share-button, .save-button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Style for the Share button */
+        .share-button {
+            border: 1px solid #dddddd;
+        }
+
+        /* Style for the Save button */
+        .save-button {
+            border: 1px solid #dddddd;
+        }
+
+        .save-button::before {
+            content: "♡";
+            font-size: 16px;
+            color: #000; /* Default color */
+        }
+
+        /* Style for when the button is liked */
+        .save-button.liked::before {
+            content: "❤️"; /* Red heart when liked */
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Save and Share Section -->
+    <div class="save-and-share-container">
+        <div>
+            <a href="#" class="back-link">See all properties</a>
+        </div>
+        <div class="button-group">
+            <!-- Share Button with Share Icon -->
+            <button class="share-button">
+                <i class="fas fa-share-alt"></i> Share
+            </button>
+            <!-- Save Button -->
+            <button class="save-button" id="saveButton">
+                Save
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Wait for the page to load and check the saved state of the button
+        window.onload = function() {
+            const saveButton = document.getElementById("saveButton");
+            
+            // Check if the "liked" state is stored in localStorage
+            if (localStorage.getItem("isLiked") === "true") {
+                saveButton.classList.add("liked"); // Apply the liked class if true
+            }
+            
+            // Event listener for the Save button
+            saveButton.addEventListener("click", function() {
+                // Toggle the "liked" state on the button
+                saveButton.classList.toggle("liked");
+                
+                // Save the state to localStorage (true if liked, false if not)
+                if (saveButton.classList.contains("liked")) {
+                    localStorage.setItem("isLiked", "true");
+                } else {
+                    localStorage.setItem("isLiked", "false");
+                }
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="booking-container">
+    <div class="price-section">
+      <h2>$134 per night</h2>
+      <p>Non-refundable</p>
+      <div class="dates">
+        <div class="date">
+          <label>Start date</label>
+          <input type="date" id="startDate">
+        </div>
+        <div class="date">
+          <label>End date</label>
+          <input type="date" id="endDate">
+        </div>
+      </div>
+      <div class="travelers">
+        <button id="travelerBtn">2 travelers</button>
+        <div id="travelerDropdown" class="dropdown">
+          <div class="counter">
+            <label>Adults</label>
+            <button class="decrement" onclick="updateCount('adults', -1)">-</button>
+            <span id="adultsCount">2</span>
+            <button class="increment" onclick="updateCount('adults', 1)">+</button>
+          </div>
+          <div class="counter">
+            <label>Children</label>
+            <button class="decrement" onclick="updateCount('children', -1)">-</button>
+            <span id="childrenCount">0</span>
+            <button class="increment" onclick="updateCount('children', 1)">+</button>
+          </div>
+          <button id="doneBtn" onclick="closeDropdown()">Done</button>
+        </div>
+      </div>
+      <div class="total">
+        <p>Total: $538</p>
+        <button class="book-now">Book now</button>
+      </div>
+    </div>
+  </div>
+  <script src="script1.js"></script>
+</body>
+</html>
